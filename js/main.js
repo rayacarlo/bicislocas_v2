@@ -1,76 +1,65 @@
+function makespan(msg, elem){
+	elem.parent().append('<span>' + msg + '</span>');
+}
+function removespan(elem){
+	elem.parent().find('span').remove();
+}
 function validateForm(){
-	var nameUser = document.getElementById("name");
-	var lastNameUser = document.getElementById("lastname");
-	var emailUser = document.getElementById("input-email");
-	var passwordUser = document.getElementById("input-password");
-	var selectClass = document.getElementsByTagName("select")[0];
+	var name = $('#name');
+	var lastname = $('#lastname');
+	var email = $('#input-email');
+	var password = $('#input-password');
+	var select = $('select');
 
-	function alert(text, node){
-		var span = node.parentNode.children[2];
-		if(!span){
-			var span = document.createElement("span");
-			}
-		span.innerHTML = text;
-		node.parentNode.appendChild(span);
+	if(name.val().length == 0){
+		makespan("Debes ingresar tu nombre", name);
 	}
-
-	function remove(element){
-		var span = element.parentNode.children[2];
-		if(!span) {return};
-		element.parentNode.removeChild(span);
+	else if(!name.val().match(/^[a-zA-Z]+$/)){
+		makespan("Este campo debe contener sólo letras", name);
 	}
-
-	if(nameUser.value.length == 0){
-		alert("Debes ingresar tu nombre", nameUser);
-	}
-	else if(!nameUser.value.match(/^[a-zA-Z]+$/)){
-		alert("Este campo debe contener sólo letras", nameUser);
-	}
-	else if(nameUser.value[0] != nameUser.value[0].toUpperCase()){
-		alert("La primera letra de tu nombre debe ser mayúscula", nameUser);
+	else if(name.val()[0] != name.val()[0].toUpperCase()){
+		makespan("La primera letra de tu nombre debe ser mayúscula", name);
 	}
 	else{
-		remove(nameUser);
+		removespan(name);
 	}
-	if(lastNameUser.value.length == 0){
-		alert("Debes ingresar tu apellido", lastNameUser);
+	if(lastname.val().length == 0){
+		makespan("Debes ingresar tu apellido", lastname);
 	}
-	else if(!lastNameUser.value.match(/^[a-zA-Z]+$/)){
-		alert("Este campo debe contener sólo letras", lastNameUser);
+	else if(!lastname.val().match(/^[a-zA-Z]+$/)){
+		makespan("Este campo debe contener sólo letras", lastname);
 	}
-	else if(lastNameUser.value[0] != lastNameUser.value[0].toUpperCase()){
-		alert("La primera letra de tu apellido debe ser mayúscula", lastNameUser);
-	}
-	else{
-		remove(lastNameUser);
-	}
-	if(emailUser.value.length == 0){
-		alert("Debes ingresar tu correo electrónico", emailUser);
-	}
-	else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailUser.value)){
-		alert("Debes ingresar un correo electrónico válido", emailUser);
+	else if(lastname.val()[0] != lastname.val()[0].toUpperCase()){
+		makespan("La primera letra de tu apellido debe ser mayúscula", lastname);
 	}
 	else{
-		remove(emailUser);
+		removespan(lastname);
 	}
-	if(passwordUser.value.length == 0){
-		alert("Debes ingresar tu contraseña", passwordUser);
+	if(email.val().length == 0){
+		makespan("Debes ingresar tu correo electrónico", email);
 	}
-	else if(passwordUser.value.length < 6){
-		alert("Debes ingresar una contraseña de 6 o más caracteres", passwordUser);
-	}
-	else if(passwordUser.value == "password" || passwordUser.value == 123456 || passwordUser.value == 098754){
-		alert("Debes ingresar una contraseña que no sea tan fácil de adivinar", passwordUser);
+	else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.val())){
+		makespan("Debes ingresar un correo electrónico válido", email);
 	}
 	else{
-		remove(passwordUser);
+		removespan(email);
 	}
-	if(selectClass.value == "0"){
-		alert("Debes seleccionar una opción", selectClass);
+	if(password.val().length == 0){
+		makespan("Debes ingresar tu contraseña", password);
+	}
+	else if(password.val().length < 6){
+		makespan("Debes ingresar una contraseña de 6 o más caracteres", password);
+	}
+	else if(password.val() == "password" || password.val() == 123456 || password.val() == 098754){
+		makespan("Debes ingresar una contraseña que no sea tan fácil de adivinar", password);
 	}
 	else{
-		var span = selectClass.parentNode.children[1];
-		if(!span) {return};
-		selectClass.parentNode.removeChild(span);
+		removespan(password);
+	}
+	if(select.val() == "0"){
+		makespan("Debes seleccionar una opción", select);
+	}
+	else{
+		removespan(select);
 	}
 }
